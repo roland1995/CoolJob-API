@@ -10,6 +10,7 @@ namespace CoolJobAPI
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -20,7 +21,17 @@ namespace CoolJobAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<JobContext>(opt =>
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "Access-Control-Allow-Origin",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://http://localhost:3000")
+                                .WithMethods("PUT", "DELETE", "GET");
+                    });
+            });
+        
+                                      services.AddDbContext<JobContext>(opt =>
                                                opt.UseInMemoryDatabase("JobList"));
             services.AddControllers();
         }
@@ -33,11 +44,14 @@ namespace CoolJobAPI
                 app.UseDeveloperExceptionPage();
             }
 
+           
+            
+
             app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

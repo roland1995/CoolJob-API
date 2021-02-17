@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CoolJobAPI.Models;
+using System.IO;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Cors;
 
 namespace CoolJobAPI.Controllers
 {
+    [EnableCors("Access-Control-Allow-Origin")]
     [Route("api/[controller]")]
     [ApiController]
     public class JobsController : ControllerBase
@@ -24,6 +28,10 @@ namespace CoolJobAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
         {
+            if (_context.Jobs.Count() < 1)
+            {
+                LoadJson();
+            }
             return await _context.Jobs.ToListAsync();
         }
 
@@ -72,8 +80,8 @@ namespace CoolJobAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Jobs
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //POST: api/Jobs
+        //To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Job>> PostJob(Job job)
         {
@@ -97,6 +105,7 @@ namespace CoolJobAPI.Controllers
             return CreatedAtAction(nameof(GetJob), new { id = job.Id }, job);
         }
 
+
         // DELETE: api/Jobs/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteJob(string id)
@@ -116,6 +125,24 @@ namespace CoolJobAPI.Controllers
         private bool JobExists(string id)
         {
             return _context.Jobs.Any(e => e.Id == id);
+        }
+
+        public async void LoadJson()
+        {
+            List<Job> jobs;
+            using (StreamReader r = new StreamReader("data.json"))
+            {
+                string json = r.ReadToEnd();
+                jobs = JsonConvert.DeserializeObject<List<Job>>(json);
+            }
+            foreach (var job in jobs)
+            {
+                _context.Jobs.Add(job);
+                Console.WriteLine(job);
+                Console.WriteLine(_context.Jobs);
+              
+            }
+            await _context.SaveChangesAsync();
         }
     }
 }

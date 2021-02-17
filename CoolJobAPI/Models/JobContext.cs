@@ -8,8 +8,8 @@ namespace CoolJobAPI.Models
             : base(options)
         {
         }
-
         public DbSet<Job> Jobs { get; set; }
 
     }
+
 }
