@@ -126,10 +126,10 @@ namespace CoolJobAPI.Controllers
             return _context.Jobs.Any(e => e.Id == id);
         }
 
-        public async void LoadJson()
+        private async void LoadJson()
         {
             List<Job> jobs;
-            using (StreamReader r = new StreamReader("data.json"))
+            using (StreamReader r = new StreamReader("wwwroot/data/data.json"))
             {
                 string json = r.ReadToEnd();
                 jobs = JsonConvert.DeserializeObject<List<Job>>(json);
@@ -137,8 +137,6 @@ namespace CoolJobAPI.Controllers
             foreach (var job in jobs)
             {
                 _context.Jobs.Add(job);
-                Console.WriteLine(job);
-                Console.WriteLine(_context.Jobs);
               
             }
             await _context.SaveChangesAsync();
