@@ -30,7 +30,7 @@ namespace CoolJobAPI
                                 .WithMethods("PUT", "DELETE", "GET");
                     });
             });
-          
+
             services.AddDbContext<JobContext>(opt =>
                                                opt.UseInMemoryDatabase("JobList")); 
             services.AddDbContext<FavoriteContext>(opt =>
