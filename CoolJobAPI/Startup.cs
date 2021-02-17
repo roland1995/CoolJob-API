@@ -10,7 +10,6 @@ namespace CoolJobAPI
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,9 +26,11 @@ namespace CoolJobAPI
                     builder =>
                     {
                         builder.WithOrigins("http://http://localhost:3000")
-                                .WithMethods("PUT", "DELETE", "GET");
+                                .WithMethods("PUT", "DELETE", "GET", "POST")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
                     });
-            });
+            }); 
 
             services.AddDbContext<JobContext>(opt =>
                                                opt.UseInMemoryDatabase("JobList")); 
