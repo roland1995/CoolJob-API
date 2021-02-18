@@ -16,18 +16,16 @@ namespace CoolJobAPI.Controllers
         private readonly FavoriteContext _context;
 
         public FavoritesController (FavoriteContext context)
-        {
+            {
             _context = context;
-        }
+            }
 
-        // GET: api/Jobs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Job>>> GetFavoriteJobs()
         {
             return await _context.Favorites.ToListAsync();
         }
 
-        // GET: api/Jobs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Job>> GetFavoriteJob(string id)
         {
@@ -41,8 +39,7 @@ namespace CoolJobAPI.Controllers
             return job;
         }
 
-        //POST: api/Jobs
-        //To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPost]
         public async Task<ActionResult<Job>> PostFavoriteJob(Job job)
         {
@@ -67,7 +64,6 @@ namespace CoolJobAPI.Controllers
         }
 
 
-        // DELETE: api/Jobs/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFavoriteJob(string id)
         {

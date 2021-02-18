@@ -28,7 +28,7 @@ namespace CoolJobAPI.Models
         public string Description { get; set; }
         [JsonPropertyName("how_to_apply")]
         public string How_To_Apply { get; set; }
-        [JsonPropertyName("company_log")]
+        [JsonPropertyName("company_logo")]
         public string Company_Logo { get; set; }
     }
 }
