@@ -5,9 +5,11 @@ using CoolJobAPI.Models;
 using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
+using Microsoft.AspNetCore.Cors;
 
 namespace CoolJobAPI.Controllers
 {
+    [EnableCors("Access-Control-Allow-Origin")]
     [Route("api/[controller]")]
     [ApiController]
     public class FilterController : ControllerBase

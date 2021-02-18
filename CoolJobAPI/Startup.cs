@@ -25,7 +25,7 @@ namespace CoolJobAPI
                 options.AddPolicy(name: "Access-Control-Allow-Origin",
                     builder =>
                     {
-                        builder.WithOrigins("http://http://localhost:3000")
+                        builder.WithOrigins("http://localhost:3000")
                                 .WithMethods("PUT", "DELETE", "GET", "POST")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();

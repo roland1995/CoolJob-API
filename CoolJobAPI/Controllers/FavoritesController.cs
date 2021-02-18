@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CoolJobAPI.Models;
-
+using Microsoft.AspNetCore.Cors;
 
 namespace CoolJobAPI.Controllers
 {
+    [EnableCors("Access-Control-Allow-Origin")]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : ControllerBase
