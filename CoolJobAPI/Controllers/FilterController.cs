@@ -24,7 +24,7 @@ namespace CoolJobAPI.Controllers
         // GET: api/filter/Type/Contract/1
         [Route("{filterBy}/{filterValue}/{page}")]
         [HttpGet("{filterBy}/{filterValue}/{page}")]
-        public async Task<ActionResult<IEnumerable<Job>>> GetFilteredJobs(string filterBy, string filterValue, int page)
+        public ActionResult<IEnumerable<Job>> GetFilteredJobs(string filterBy, string filterValue, int page)
         {
             return _context.GetFilteredJobs(filterBy, filterValue, page);
         }
@@ -32,7 +32,7 @@ namespace CoolJobAPI.Controllers
         // GET: api/filter/Type
         [Route("{filterBy}")]
         [HttpGet("{filterBy}")]
-        public async Task<ActionResult<IEnumerable<string>>> GetFilterValuesByFilterType(string filterBy)
+        public ActionResult<IEnumerable<string>> GetFilterValuesByFilterType(string filterBy)
         {
             return _context.GetSpecificFilterValuesByFilterType(filterBy);
         }
